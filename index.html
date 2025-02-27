@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgencyForge - AI Agency Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f4f7f9;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4338ca 0%, #6366f1 100%);
+            color: white;
+            padding: 25px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: white;
+            color: #4338ca;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        /* iTabs System */
+        .itabs-container {
+            background: white;
+        }
+        
+        .tabs-nav {
+            display: flex;
+            background-color: #f1f5f9;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .tab {
+            padding: 15px 20px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            color: #4338ca;
+        }
+        
+        .tab.active {
+            color: #4338ca;
+            background: white;
+            border-bottom: 3px solid #4338ca;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 25px;
+            animation: fadeIn 0.5s;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature-card {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .feature-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+        
+        /* 👍i System */
+        .thumbs-i-demo {
+            background: #f0f7ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px dashed #4338ca;
+            position: relative;
+        }
+        
+        .thumbs-i-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .thumbs-i-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4338ca;
+        }
+        
+        .thumbs-i-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .thumbs-i-button {
+            font-size: 32px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s;
+        }
+        
+        .thumbs-i-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .i-indicator {
+            position: absolute;
+            top: 0;
+            right: -5px;
+            background: #4338ca;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-style: italic;
+            font-weight: bold;
+        }
+        
+        .thumbs-i-popup {
+            position: absolute;
+            top: 45px;
+            right: 0;
+            background: white;
+            width: 280px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 100;
+            display: none;
+        }
+        
+        .thumbs-i-popup.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        
+        .thumbs-i-popup h4 {
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+        
+        .options-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .option {
+            background: #f1f5f9;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .option:hover {
+            background: #e2e8f0;
+        }
+        
+        .option.selected {
+            background: #4338ca;
+            color: white;
+        }
+        
+        /* CTA Button */
+        .cta-container {
+            text-align: center;
+            margin: 30px 0 15px 0;
+        }
+        
+        .cta-button {
+            background: #4338ca;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .cta-button:hover {
+            background: #3730a3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(67, 56, 202, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">AI Agency Platform</div>
+            <h1>AgencyForge: Content Creation System for AI Agencies</h1>
+            <p>Transform how you showcase your AI services with interactive iTabs and engagement features</p>
+        </header>
+        
+        <div class="itabs-container">
+            <div class="tabs-nav">
+                <button class="tab active" onclick="openTab('vision')">Vision</button>
+                <button class="tab" onclick="openTab('features')">Features</button>
+                <button class="tab" onclick="openTab('benefits')">Benefits</button>
+                <button class="tab" onclick="openTab('partnership')">Partnership</button>
+            </div>
+            
+            <!-- Vision Tab -->
+            <div id="vision-tab" class="tab-content active">
+                <h2>Build the Future of AI Agency Marketing</h2>
+                <p>We're creating the first specialized platform for AI agencies to showcase complex services in an engaging, interactive way that clients can actually understand.</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3 class="feature-title">Simplify Complex AI Concepts</h3>
+                        <p>Help prospects understand your technical services through interactive, visual explanations that bridge the knowledge gap.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3 class="feature-title">Shorten Sales Cycles</h3>
+                        <p>Pre-educate prospects with self-service information that answers common questions before they even speak with you.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3 class="feature-title">Stand Out From Competitors</h3>
+                        <p>While others use static websites and PDFs, your interactive content will showcase your technical expertise and innovation.</p>
+                    </div>
+                </div>
+                
+                <div class="cta-container">
+                    <button class="cta-button" onclick="openTab('partnership')">Explore Partnership Opportunity</button>
+                </div>
+            </div>
+            
+            <!-- Features Tab -->
+            <div id="features-tab" class="tab-content">
+                <h2>Innovative Tools for AI Agency Growth</h2>
+                <p>Our platform includes specialized features designed specifically for the unique challenges of selling AI services.</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3 class="feature-title">iTabs System</h3>
+                        <p>Like what you're experiencing now - organized, tabbed information that guides prospects through your offerings.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3 class="feature-title">👍i Endorsement System</h3>
+                        <p>Transform standard reactions into interactive engagement tools with deeper insights. Try it below!</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3 class="feature-title">Service Teasers</h3>
+                        <p>Create engaging previews of your services that expand to reveal detailed information when clicked.</p>
+                    </div>
+                </div>
+                
+                <!-- 👍i Demo -->
+                <div class="thumbs-i-demo">
+                    <div class="thumbs-i-header">
+                        <h3 class="thumbs-i-title">👍i Demo: Try It!</h3>
+                        <div class="thumbs-i-container">
+                            <button class="thumbs-i-button" id="thumbs-button">👍
+                                <div class="i-indicator">i</div>
+                            </button>
+                            <div class="thumbs-i-popup" id="thumbs-popup">
+                                <h4>What do you like about this concept?</h4>
+                                <div class="options-container">
+                                    <div class="option" onclick="selectOption(this)">Innovative approach</div>
+                                    <div class="option" onclick="selectOption(this)">Tech-focused design</div>
+                                    <div class="option" onclick="selectOption(this)">Business potential</div>
+                                    <div class="option" onclick="selectOption(this)">Easy implementation</div>
+                                </div>
+                                <p>This is just one example of the interactive engagement tools you can build with our platform.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Click the 👍i button above to see how the interactive endorsement system works. This feature can be customized for client testimonials, service feedback, or any other engagement scenario.</p>
+                </div>
+            </div>
+            
+            <!-- Benefits Tab -->
+            <div id="benefits-tab" class="tab-content">
+                <h2>Transform Your AI Agency's Marketing</h2>
+                <p>Our platform provides immediate and long-term advantages for AI consultancies and agencies of all sizes.</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3 class="feature-title">40% Faster Conversions</h3>
+                        <p>Clients who understand what you do make decisions faster. Our interactive content explains AI services more effectively than text alone.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3 class="feature-title">Save 15+ Hours/Week</h3>
+                        <p>Stop recreating presentations and proposals from scratch. Build reusable components that can be quickly customized for each prospect.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3 class="feature-title">Reduce Technical Objections</h3>
+                        <p>Pre-emptively address common concerns about AI implementation with visual explanations that build confidence.</p>
+                    </div>
+                </div>
+                
+                <div class="cta-container">
+                    <button class="cta-button" onclick="openTab('partnership')">See How It Works For You</button>
+                </div>
+            </div>
+            
+            <!-- Partnership Tab -->
+            <div id="partnership-tab" class="tab-content">
+                <h2>Become a Founding Partner</h2>
+                <p>We're seeking a technical co-founder with AI expertise to help develop this revolutionary platform. Your computer science background makes you an ideal partner.</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3 class="feature-title">First-Mover Advantage</h3>
+                        <p>Join as a ground-floor partner in creating the definitive platform for AI agency growth before competitors emerge.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3 class="feature-title">Dual Growth Opportunity</h3>
+                        <p>Build your AI agency while simultaneously developing a scalable SaaS product with recurring revenue.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3 class="feature-title">Leverage Your Technical Skills</h3>
+                        <p>Your computer science background is precisely what's needed to architect a sophisticated yet user-friendly platform.</p>
+                    </div>
+                </div>
+                
+                <div class="cta-container">
+                    <button class="cta-button">Schedule Strategy Session</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Tab functionality
+        function openTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            // Deactivate all tabs
+            const tabs = document.getElementsByClassName('tab');
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            
+            // Activate the selected tab and content
+            document.getElementById(tabName + '-tab').classList.add('active');
+            
+            // Find and activate the correct tab button
+            const tabButtons = document.querySelectorAll('.tab');
+            for (let i = 0; i < tabButtons.length; i++) {
+                if (tabButtons[i].textContent.toLowerCase() === tabName.toLowerCase()) {
+                    tabButtons[i].classList.add('active');
+                }
+            }
+        }
+        
+        // 👍i functionality
+        const thumbsButton = document.getElementById('thumbs-button');
+        const thumbsPopup = document.getElementById('thumbs-popup');
+        
+        thumbsButton.addEventListener('click', function() {
+            thumbsPopup.classList.toggle('active');
+        });
+        
+        // Close popup when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!thumbsButton.contains(event.target) && !thumbsPopup.contains(event.target)) {
+                thumbsPopup.classList.remove('active');
+            }
+        });
+        
+        // Option selection
+        function selectOption(element) {
+            // Toggle selected class
+            element.classList.toggle('selected');
+        }
+    </script>
+</body>
+</html>
